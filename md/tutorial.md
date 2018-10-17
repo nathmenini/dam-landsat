@@ -12,7 +12,7 @@ If you encounter any bugs, please send a message to nathmenini@gmail.com, or cre
 
 ## Tutorial
 
-Albeit very simple, please follow this short usage guide to learn how to
+Albeit very simple, please follow these screen captures bellow to learn how to
 properly use the tool.
 
 ### Pixel Tab <i class="fa fa-thumb-tack"></i>
