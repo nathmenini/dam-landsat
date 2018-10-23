@@ -4,7 +4,7 @@
 
 **Data Acquisition Manager (DAM)** is a [Shiny](https://shiny.rstudio.com/) app, developed using R and Python, designed for the download of *Landsat Surface Reflectance* time series pixel or image data or.
 
-If you encounter any bugs, please create an [issue](https://github.com/nathmenini/download-rsd/issues) or send a message to nathmenini@gmail.com.
+If you encounter any bugs, please create an [issue](https://github.com/nathmenini/download-rsd/issues) or send a message to nathmenini@gmail.com and almeida.xan@gmail.com.
 
 ## Usage
 
