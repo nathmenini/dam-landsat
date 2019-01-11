@@ -216,28 +216,67 @@ shinyServer(function(input, output, session) {
 	# Download raster
 	observeEvent(input$raster_botaoDownload, {
 
+		# isolate ({
+		# 	infile <- input$raster_datafile
+		# 	shapePath <- file.path(substr(infile$datapath, 1, nchar(infile$datapath) - 5))
+		# 	shape <- raster_filedata()[[1]]
+		# })
+		#
+		# python.assign("msg", NULL) # msg para ser exibida ao final
+		# python.assign("shape", shape) # nome do shapefile
+		# python.assign("shapePath", shapePath) # path da pasta descomprimida
+		# python.assign("satellite", input$raster_satellite) # numero do satelite
+		# python.assign("satprod", input$raster_versionLS) # versao do landsat
+		# python.assign("periodStart", as.character(input$raster_periodStart)) # data para comecar a baixar
+		# python.assign("periodEnd", as.character(input$raster_periodEnd)) # data que termina de baixar
+		#
+		# # Seta o caminho para salvar as imagens
+		#
+		# pathRaster <- file.path(tempdir())
+		# python.assign("pathRaster", pathRaster)
+		#
+		# # Executa o script do Python
+		# pathR <- getwd()
+		# python.load(file.path("python-download/gee-ls-prepare.py"))
+		#
+		# # Pega o numero de imagens para serem baixadas
+		# nRaster <- python.get("imgColLen")
+		#
+		# if(nRaster > 0) {
+		# 	withProgress(message = 'Downloading', value = 0, {
+		# 		for(i in 0:(nRaster-1)) {
+		# 			setProgress((i+1) / nRaster, detail = paste0((i+1), "/", nRaster))
+		# 			python.assign("i", i) # atualizada o valor de i do loop
+		# 			python.load(file.path(pathR, "python-download/download-raster-ls.py"))
+		# 		}
+		# 	})
+		# 	if(input$download_SRTM) {
+		# 		python.load(file.path(pathR,"python-download/download-SRTM.py"))
+		# 	}
+		# }
+		#
+		# output$msg <- renderText({ python.get("msg") })
+		#
+		# setwd(pathR)
+
+		workpath <- getwd()
 		isolate ({
 			infile <- input$raster_datafile
 			shapePath <- file.path(substr(infile$datapath, 1, nchar(infile$datapath) - 5))
 			shape <- raster_filedata()[[1]]
 		})
 
-		python.assign("msg", NULL) # msg para ser exibida ao final
-		python.assign("shape", shape) # nome do shapefile
+		python.assign("msg", NULL) # nome da pasta descomprimida
+		python.assign("shape", shape) # nome da pasta descomprimida
 		python.assign("shapePath", shapePath) # path da pasta descomprimida
 		python.assign("satellite", input$raster_satellite) # numero do satelite
 		python.assign("satprod", input$raster_versionLS) # versao do landsat
 		python.assign("periodStart", as.character(input$raster_periodStart)) # data para comecar a baixar
 		python.assign("periodEnd", as.character(input$raster_periodEnd)) # data que termina de baixar
 
-		# Seta o caminho para salvar as imagens
-
-		pathRaster <- file.path(tempdir())
-		python.assign("pathRaster", pathRaster)
-
 		# Executa o script do Python
 		pathR <- getwd()
-		python.load(file.path("python-download/gee-ls-prepare.py"))
+		python.load(file.path(pathR, "python-download/gee-ls-prepare.py"))
 
 		# Pega o numero de imagens para serem baixadas
 		nRaster <- python.get("imgColLen")
@@ -257,23 +296,23 @@ shinyServer(function(input, output, session) {
 
 		output$msg <- renderText({ python.get("msg") })
 
-		setwd(pathR)
+		setwd(workpath)
 
 	})
 
 	# Salvando dados de Raster
-	output$action_downloadDataRaster <- downloadHandler(
-		filename = paste0("images-downloaded", ".zip"),
-		content = {function(file) {
-				pathAux <- getwd()
-				setwd(file.path(tempdir(), "raster"))
-				zip(zipfile = file, files = isolate ({
-					shape <- raster_filedata()[[1]]
-				}))
-				setwd(pathAux)
-			}
-		}
-	)
+	# output$action_downloadDataRaster <- downloadHandler(
+	# 	filename = paste0("images-downloaded", ".zip"),
+	# 	content = {function(file) {
+	# 			pathAux <- getwd()
+	# 			setwd(file.path(tempdir(), "raster"))
+	# 			zip(zipfile = file, files = isolate ({
+	# 				shape <- raster_filedata()[[1]]
+	# 			}))
+	# 			setwd(pathAux)
+	# 		}
+	# 	}
+	# )
 
 	# Plotting
 	output$pixel_leaf <- renderLeaflet({

@@ -58,6 +58,3 @@ properly use the tool.
 
 
 ![md](./images/raster-6.png)
-
-
-![md](./images/raster-7.png)

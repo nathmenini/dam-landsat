@@ -22,9 +22,7 @@ tabPanel(
 
 		selectInput(inputId = "raster_versionLS",
 						label = "Landsat SR Version",
-						choices = list("Collection 1" = "SR_new",
-											"Pre-Collection" = "SR_old",
-											"TOA" = "TOA")),
+						choices = list("Collection 1" = "SR_new")),
 		selectInput(inputId = "raster_satellite",
 						label = "Landsat Number",
 						choices = list(4, 5, 7, 8)),
@@ -49,11 +47,11 @@ tabPanel(
 			icon = icon("download", lib = "font-awesome"),
 			width = "50%"
 		),
-		downloadButton(
-			outputId = "action_downloadDataRaster",
-			label = "Data",
-			class = "btn-primary"
-		),
+		# downloadButton(
+		# 	outputId = "action_downloadDataRaster",
+		# 	label = "Data",
+		# 	class = "btn-primary"
+		# ),
 		textOutput("msg")
 	),
 

@@ -47,11 +47,13 @@ if(satprod == 'TOA'):
 ee.Initialize()
 
 # chdir to shape folder and reads input shape
+pathAtual = os.getcwd()
 os.chdir(shapePath)
 sf = shapefile.Reader(shape)
 shapes = sf.shapes()
 shapespoints = shapes[0].points
-os.chdir('..'+os.sep)
+os.chdir(pathAtual)
+# os.chdir('..'+os.sep)
 
 # creating a polygon from input shape
 tmp = list()
@@ -69,7 +71,7 @@ except socket.error:
 	bnd = ee.Geometry.Rectangle(shapes[0].bbox)
 
 # entering to the user path
-os.chdir(pathRaster)
+# os.chdir(pathRaster)
 
 # chdir to raster folder
 if(not(os.path.exists('raster'))):
