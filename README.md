@@ -1,4 +1,4 @@
-# Data Acquisition Manager v0.0.1
+# Data Acquisition Manager v0.0.2
 
 ## Description
 
