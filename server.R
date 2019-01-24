@@ -33,6 +33,7 @@ shinyServer(function(input, output, session) {
 		} else {
 			unzip(infile$datapath, exdir = infolder)
 			shp <- shapefile(file.path(substr(infile$datapath, 1, nchar(infile$datapath) - 5), paste0(nameShape, ".shp")))
+			shp <- spTransform(shp, proj_ll)
 			return(list(nameShape, shp))
 		}
 	})
